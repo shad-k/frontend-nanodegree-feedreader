@@ -105,9 +105,17 @@ $(function() {
         * loadFeed() is asynchronous so this test requires
         * the use of Jasmine's beforeEach and asynchronous done() function.
         */
-        it('.feed contains atleast one .entry element', function(done) {
+        it('feed contains atleast one .entry element', function(done) {
             expect($('.feed .entry').length).toBeGreaterThan(0);
             done();
+        });
+
+
+        /* This test ensures that each feed entry contains a summary.
+         * This test will fail for now because the current implementation is wrong.
+         */
+        it('feed contains summaries for entries', function(done) {
+            expect($('.feed .entry p').text()).not.toBe('');
         });
     });
 
