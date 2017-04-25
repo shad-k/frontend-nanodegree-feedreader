@@ -115,7 +115,10 @@ $(function() {
          * This test will fail for now because the current implementation is wrong.
          */
         it('feed contains summaries for entries', function(done) {
-            expect($('.feed .entry p').text()).not.toBe('');
+            $(".feed .entry").each(function() {
+                expect($(this).children("p").text()).not.toBe('');
+            })
+            done();
         });
     });
 
