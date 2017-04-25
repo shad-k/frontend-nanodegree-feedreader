@@ -9,6 +9,16 @@
  * to ensure they don't run until the DOM is ready.
  */
 $(function() {
+
+    /* This function runs before any of the tests run.
+     * It is used here to fire the tests for asynchronous function
+     * loadFeed when it finishes its execution.
+    */
+    beforeEach(function(done) {
+        loadFeed(0, done);
+    });
+
+
     /* This is our first test suite - a test suite just contains
     * a related set of tests. This suite is all about the RSS
     * feeds definitions, the allFeeds variable in our application.
@@ -63,9 +73,9 @@ $(function() {
         expect(body.hasClass('menu-hidden')).toBe(true);
         });
 
-        /* TODO: Write a test that ensures the menu changes
+        /* This test ensures the menu changes
         * visibility when the menu icon is clicked. This test
-        * should have two expectations: does the menu display when
+        * has two expectations: does the menu display when
         * clicked and does it hide when clicked again.
         */
         it('changes visibility when menu icon is clicked', function() {
@@ -83,14 +93,19 @@ $(function() {
         });
     });
 
-    /* TODO: Write a new test suite named "Initial Entries" */
-
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
+    /* This test suite concerns the initial entries loaded */
+    describe('Initial Entries', function() {
+        /* This test ensures when the loadFeed
+        * function is called and completes its work, there is at least
+        * a single .entry element within the .feed container.
+        * loadFeed() is asynchronous so this test requires
+        * the use of Jasmine's beforeEach and asynchronous done() function.
+        */
+        it('.feed contains atleast one .entry element', function(done) {
+            expect($('.feed .entry').length).toBeGreaterThan(0);
+            done();
+        });
+    });
 
     /* TODO: Write a new test suite named "New Feed Selection" */
 
