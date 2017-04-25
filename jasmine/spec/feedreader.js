@@ -14,8 +14,12 @@ $(function() {
      * It is used here to fire the tests for asynchronous function
      * loadFeed when it finishes its execution.
     */
+    var previousLoadedTitle;
     beforeEach(function(done) {
-        loadFeed(0, done);
+        loadFeed(0, function() {
+            previousLoadedTitle = $('.header-title').text();
+            done();
+        });
     });
 
 
@@ -107,10 +111,18 @@ $(function() {
         });
     });
 
-    /* TODO: Write a new test suite named "New Feed Selection" */
-
-        /* TODO: Write a test that ensures when a new feed is loaded
+    /* This suite concerns the loading of new feeds */
+    describe('New Feed Selection', function() {
+        /* This test ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
          */
+        it('changes the content on the page', function(done) {
+            var currentLoadedTitle;
+            loadFeed(1, function() {
+                currentLoadedTitle = $('.header-title').text();
+            });
+            expect(currentLoadedTitle).not.toBe(previousLoadedTitle);
+            done();
+        });
+    });
 }());
